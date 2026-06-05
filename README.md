@@ -429,7 +429,7 @@ Render 提供免费的后端托管服务，部署步骤如下：
 3. 导入 GitHub 仓库 `Today-Hot`
 4. 配置构建设置：
    - **Framework Preset**: `Vite`
-   - **Root Directory**: `client`
+   - **Root Directory**: `client`（⚠️ **重要**：必须设置为 `client`）
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
 
@@ -439,6 +439,20 @@ Render 提供免费的后端托管服务，部署步骤如下：
    ```
 
 6. 点击 "Deploy" 开始部署
+
+### ⚠️ Vercel 部署注意事项
+
+如果遇到 `Cannot find module '@rollup/rollup-linux-x64-gnu` 错误：
+
+**解决方案：**
+1. 在 Vercel 项目设置中，确认 **Root Directory** 设置为 `client`
+2. 删除 Vercel 部署记录，重新部署
+3. 确保 Git 仓库中没有提交 `node_modules` 目录
+
+**检查清单：**
+- [ ] Root Directory 设置为 `client`（不是根目录）
+- [ ] `.gitignore` 已正确配置，`node_modules/` 被忽略
+- [ ] Git 仓库中没有 `node_modules` 目录
 
 ### 部署建议
 

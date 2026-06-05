@@ -154,7 +154,68 @@ cd client && npm run dev
 
 ### 8. 生产环境部署配置
 
-#### 反向代理配置 (Nginx 示例)
+#### Render 部署配置
+
+**后端部署到 Render：**
+
+1. **创建 Web Service**
+   - 登录 [Render Dashboard](https://dashboard.render.com/)
+   - 点击 "New +" → "Web Service"
+   - 连接 GitHub 仓库
+
+2. **配置服务参数**
+   ```
+   Name: mini-hot-hub
+   Region: Singapore (或其他最近区域)
+   Branch: main
+   Root Directory: (留空)
+   Runtime: Node
+   Build Command: npm install
+   Start Command: npm run start
+   ```
+
+3. **配置环境变量**
+   ```
+   NODE_ENV=production
+   PORT=3001
+   ALLOW_ORIGIN=https://your-frontend-domain.vercel.app
+   CACHE_TTL=600000
+   ```
+
+4. **实例类型**
+   - 选择 "Free" 套餐
+   - 注意：免费套餐会自动休眠，首次访问需唤醒
+
+5. **获取部署地址**
+   - 部署成功后获取地址：`https://mini-hot-hub-xxxx.onrender.com`
+
+#### Vercel 部署配置
+
+**前端部署到 Vercel：**
+
+1. **创建项目**
+   - 登录 [Vercel Dashboard](https://vercel.com/dashboard)
+   - 点击 "Add New Project"
+   - 导入 GitHub 仓库
+
+2. **构建设置**
+   ```
+   Framework Preset: Vite
+   Root Directory: client
+   Build Command: npm run build
+   Output Directory: dist
+   ```
+
+3. **环境变量**
+   ```
+   VITE_API_BASE=https://mini-hot-hub-xxxx.onrender.com/api
+   ```
+
+4. **部署**
+   - 点击 "Deploy" 开始部署
+   - 获取地址：`https://your-project.vercel.app`
+
+#### 反向代理配置 (Nginx 示例 - 自部署)
 
 ```nginx
 server {
@@ -177,7 +238,7 @@ server {
 }
 ```
 
-#### 进程管理 (PM2 示例)
+#### 进程管理 (PM2 示例 - 自部署)
 
 ```bash
 # 安装 PM2

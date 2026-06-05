@@ -384,47 +384,77 @@ export async function fetchSingleHot(source: string) {
 }
 ```
 
-### Railway 部署指南
+### Render 部署指南
 
-#### 后端部署
+#### 后端部署（Render）
 
-Railway 支持从项目根目录启动服务，需要配置以下步骤：
+Render 提供免费的后端托管服务，部署步骤如下：
 
 1. **创建新服务**
-   - 在 Railway 仪表板点击 "New Project"
-   - 选择 "Deploy from GitHub repo"
-   - 选择你的项目仓库
+   - 登录 [Render Dashboard](https://dashboard.render.com/)
+   - 点击 "New +" → "Web Service"
+   - 连接你的 GitHub 仓库，选择 `Today-Hot` 项目
 
-2. **配置启动命令**
-   - 在 Railway 项目设置中找到 "Start Command"
-   - 设置为：`npm run start`
-   - Railway 会自动运行根目录的 `package.json` 脚本
+2. **配置服务设置**
+   - **Name**: `mini-hot-hub`（自定义）
+   - **Region**: 选择离你最近的区域（如 `Singapore`）
+   - **Branch**: `main`
+   - **Root Directory**: 留空（项目根目录）
+   - **Runtime**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm run start`
 
 3. **配置环境变量**
-   - 在 Railway 的 "Variables" 页面添加：
+   - 在 "Environment" 标签页添加以下变量：
      ```
+     NODE_ENV=production
      PORT=3001
+     ALLOW_ORIGIN=https://your-frontend-domain.vercel.app
+     CACHE_TTL=600000
      ```
 
-4. **配置构建命令（可选）**
-   - 如果需要自动构建，设置 "Build Command" 为：
-     ```bash
-     npm install && npm run build
-     ```
+4. **配置实例类型**
+   - **Instance Type**: 选择 "Free"（免费套餐）
+   - 免费套餐会自动休眠，首次访问需要唤醒（约 30 秒）
 
-#### 前端部署（推荐使用 Vercel）
+5. **部署**
+   - 点击 "Create Web Service"
+   - 等待部署完成（约 2-5 分钟）
+   - 获取 Render 分配的域名：`https://mini-hot-hub-xxxx.onrender.com`
 
-1. 在 Vercel 中导入项目
-2. 设置构建命令：`npm run build:client`
-3. 设置输出目录：`client/dist`
-4. 添加环境变量：`VITE_API_BASE=https://your-railway-domain.up.railway.app`
+#### 前端部署（Vercel）
+
+1. 登录 [Vercel Dashboard](https://vercel.com/dashboard)
+2. 点击 "Add New Project"
+3. 导入 GitHub 仓库 `Today-Hot`
+4. 配置构建设置：
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `client`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+
+5. 添加环境变量：
+   ```
+   VITE_API_BASE=https://mini-hot-hub-xxxx.onrender.com/api
+   ```
+
+6. 点击 "Deploy" 开始部署
 
 ### 部署建议
 
-| 平台 | 推荐服务 |
-|------|---------|
-| 前端 | Vercel / Netlify |
-| 后端 | Railway / Render |
+| 平台 | 推荐服务 | 说明 |
+|------|---------|------|
+| 前端 | Vercel | 免费、快速、自动 HTTPS |
+| 后端 | Render | 免费套餐、支持 Node.js、自动部署 |
+
+### 部署检查清单
+
+- [ ] 后端 Render 服务已创建
+- [ ] 环境变量 `ALLOW_ORIGIN` 已设置为前端域名
+- [ ] 前端 Vercel 服务已创建
+- [ ] 环境变量 `VITE_API_BASE` 已设置为后端域名
+- [ ] 测试 API 接口：`https://your-render-domain.onrender.com/api/health`
+- [ ] 测试前端页面：`https://your-vercel-domain.vercel.app`
 
 ## 开发计划
 

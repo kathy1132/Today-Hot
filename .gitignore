@@ -1,6 +1,5 @@
-# 依赖目录
-client/node_modules/
-server/node_modules/
+# 依赖目录（全局忽略）
+node_modules/
 
 # 隐私环境文件
 server/.env

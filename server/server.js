@@ -3,7 +3,7 @@ const cors = require('cors');
 const { getHotData, clearCache } = require('./services/hotCrawler');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
   'http://localhost:5173',
@@ -88,6 +88,6 @@ app.get('/api/health', (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`启动:${PORT}`);
 });

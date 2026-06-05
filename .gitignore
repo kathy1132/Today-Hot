@@ -1,0 +1,14 @@
+# 依赖目录
+client/node_modules/
+server/node_modules/
+
+# 隐私环境文件
+server/.env
+client/.env.local
+
+# 打包产物
+client/dist/
+
+# 系统缓存
+.DS_Store
+*.log

@@ -1,0 +1,25 @@
+{
+  "name": "mini-hot-hub",
+  "version": "1.0.0",
+  "description": "迷你今日热榜 - 一站式聚合微博、知乎、B站实时热点",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run start",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build:client": "cd client && npm run build",
+    "build": "npm run build:client",
+    "start": "cd server && npm run start",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["hot", "weibo", "zhihu", "bilibili", "热搜"],
+  "author": "",
+  "license": "MIT"
+}

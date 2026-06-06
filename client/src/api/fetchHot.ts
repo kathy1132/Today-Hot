@@ -1,6 +1,6 @@
 import { ApiResponse } from '../types/hot';
 
-const baseUrl = import.meta.env.VITE_API_BASE;
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // 获取全平台榜单
 export async function fetchAllHot(): Promise<ApiResponse> {
